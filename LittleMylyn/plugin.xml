@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="LittleMylyn"
+            id="LittleMylyn">
+      </category>
+      <wizard
+            name="Task FIle"
+            icon="icons/sample.gif"
+            category="LittleMylyn"
+            class="littlemylyn.wizards.TaskWizard"
+            id="littlemylyn.wizards.TaskWizard">
+      </wizard>
+   </extension>
+
+</plugin>
