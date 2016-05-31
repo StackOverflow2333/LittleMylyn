@@ -3,13 +3,14 @@ package taskContent;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Vector;
 
 public class Task implements Serializable
 {
 	private String name;
 	private String taskClass;
 	private String status;
-	
+	private Vector<String> relatedClass;
 	public Task(String name, String taskClass){
 		this.name = name;
 		this.taskClass = taskClass;
@@ -54,6 +55,14 @@ public class Task implements Serializable
 		return status;
 	}
 	
+	public Vector<String> getRelatedClass() {
+		return relatedClass;
+	}
+
+	public void setRelatedClass(Vector<String> relatedClass) {
+		this.relatedClass = relatedClass;
+	}
+	
 	//建议修改以下函数，因为set有规则
 	public void setTaskClass(String taskClass) {
 		this.taskClass = taskClass;
@@ -61,5 +70,7 @@ public class Task implements Serializable
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	
 	
 }
