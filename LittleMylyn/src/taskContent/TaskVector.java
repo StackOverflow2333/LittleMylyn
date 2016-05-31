@@ -2,10 +2,10 @@ package taskContent;
 
 import java.util.Vector;
 
-public class taskVector extends Vector<Task>
+public class TaskVector extends Vector<Task>
 {
 	//读取当前全部task
-	public taskVector(){
+	public TaskVector(){
 		
 	}
 	
