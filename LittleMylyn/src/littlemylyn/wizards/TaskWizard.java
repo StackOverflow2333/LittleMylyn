@@ -55,8 +55,8 @@ public class TaskWizard extends Wizard implements INewWizard {
 	 * using wizard as execution context.
 	 */
 	public boolean performFinish() {
-		//final String containerName = page.getContainerName();
-		final String taskName = page.getFileName();
+		
+		final String taskName = page.getTaskName();
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
