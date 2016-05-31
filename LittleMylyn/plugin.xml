@@ -16,5 +16,19 @@
             id="littlemylyn.wizards.TaskWizard">
       </wizard>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Little Mylyn"
+            id="LittleMylyn">
+      </category>
+      <view
+            name="Task View"
+            icon="icons/sample.gif"
+            category="LittleMylyn"
+            class="littlemylyn.views.TaskView"
+            id="littlemylyn.views.TaskView">
+      </view>
+   </extension>
 
 </plugin>
