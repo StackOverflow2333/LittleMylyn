@@ -47,7 +47,7 @@ public class TaskWizardPage extends WizardPage {
 		layout.verticalSpacing = 9;
 
 		Label label = new Label(container, SWT.NULL);
-		label.setText("ÈÎÎñÃû³Æ£º");
+		label.setText("ä»»åŠ¡åç§°ï¼š");
 
 		taskNameText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -60,7 +60,7 @@ public class TaskWizardPage extends WizardPage {
 		});
 		
 		label = new Label(container,SWT.NULL);
-		label.setText("ÈÎÎñÀà±ğ£º");
+		label.setText("ä»»åŠ¡ç±»åˆ«ï¼š");
 		taskClass = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 		taskClass.add("debug");
 		taskClass.add("new feature");

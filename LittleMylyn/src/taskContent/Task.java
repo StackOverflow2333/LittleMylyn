@@ -16,14 +16,14 @@ public class Task implements Serializable
 		status = "New";
 	}
 	
-	//Í¨¹ı¶ÁÈ¡ÎÄ¼şĞÂ½¨Task
+	//ç”¨è¯»å–æ–‡ä»¶çš„æ–¹å¼æ–°å»ºTask
 	public Task(String name){
 		
 	}
 	
 	/*
 	 * save()
-	 * Ä¬ÈÏ´¢´æÂ·¾¶ TaskList/name
+	 * é»˜è®¤å­˜å‚¨åœ°å€ TaskList/name
 	 * */
 	public void save() throws IOException
 	{
@@ -38,7 +38,7 @@ public class Task implements Serializable
 			file.createNewFile();
 		}
 		
-		//ÏÂÃæ¿ªÊ¼±£´æ¡£¡£¡£
+		//æ¥ä¸‹æ¥è¦å®Œæˆå­˜æ¡£
 	}
 	
 	
@@ -54,7 +54,7 @@ public class Task implements Serializable
 		return status;
 	}
 	
-	//ÏÂÃæµÄº¯ÊıÏ£ÍûĞŞ¸Ä£¬ÒòÎªsetÓĞ¹æÔò
+	//å»ºè®®ä¿®æ”¹ä»¥ä¸‹å‡½æ•°ï¼Œå› ä¸ºsetæœ‰è§„åˆ™
 	public void setTaskClass(String taskClass) {
 		this.taskClass = taskClass;
 	}

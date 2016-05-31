@@ -4,17 +4,17 @@ import java.util.Vector;
 
 public class TaskVector extends Vector<Task>
 {
-	//读取当前全部task
+	//璇诲彇鍏ㄩ儴Task
 	public TaskVector(){
 		
 	}
 	
-	//得到激活的Task编号,没有则返回-1
+	//杩斿洖婵�娲荤殑Task缂栧彿锛屾棤婵�娲诲垯杩斿洖-1
 	public int getActivity(){
 		return -1;
 	}
 	
-	//删除第i个Task
+	//鍒犻櫎Task
 	public void delete(int i){
 		
 	}
