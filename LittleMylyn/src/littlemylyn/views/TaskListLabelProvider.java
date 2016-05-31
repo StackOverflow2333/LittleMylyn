@@ -1,5 +1,7 @@
 package littlemylyn.views;
 
+import java.util.Vector;
+
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
@@ -41,7 +43,15 @@ public class TaskListLabelProvider implements ILabelProvider {
 	@Override
 	public String getText(Object arg0) {
 		// TODO Auto-generated method stub
-		if (arg0 instanceof Task) return ((Task) arg0).getName();
+		if (arg0 instanceof Node){
+			if (((Node) arg0).getData() instanceof Task) return ((Task) ((Node) arg0).getData()).getName();
+			if (((Node) arg0).getData() instanceof String) return (String) ((Node) arg0).getData();
+			if (((Node) arg0).getData() instanceof Vector){
+				return "related class";
+			}
+		}
+		
+	
 		return null;
 	}
 
