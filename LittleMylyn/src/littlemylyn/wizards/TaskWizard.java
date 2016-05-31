@@ -17,6 +17,8 @@ import java.io.*;
 
 import org.eclipse.ui.*;
 
+import taskContent.Task;
+
 /**
  * This is a sample new wizard. Its role is to create a new file 
  * resource in the provided container. If the container resource
@@ -57,10 +59,11 @@ public class TaskWizard extends Wizard implements INewWizard {
 	public boolean performFinish() {
 		
 		final String taskName = page.getTaskName();
+		final String taskClass = page.getTaskClass();
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
-					doFinish(taskName, monitor);
+					doFinish(taskName, taskClass, monitor);
 				} catch (CoreException e) {
 					throw new InvocationTargetException(e);
 				} finally {
@@ -88,6 +91,7 @@ public class TaskWizard extends Wizard implements INewWizard {
 
 	private void doFinish(
 		String taskName,
+		String taskClass,
 		IProgressMonitor monitor)
 		throws CoreException {
 		// create a sample file
@@ -101,11 +105,13 @@ public class TaskWizard extends Wizard implements INewWizard {
 		File taskFile = new File(fileName);
 		if (!taskFile.exists())
 		{
-			try {
-				taskFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			Task newTask = new Task(taskName,taskClass);
+			
+			try{
+				newTask.save();
+			}catch (Exception e){
 				e.printStackTrace();
+				throwCoreException("Task Save error");
 			}
 		}
 		else throwCoreException("Task has been exist");
