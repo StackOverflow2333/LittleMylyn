@@ -14,6 +14,7 @@ public class Task implements Serializable
 	public Task(String name, String taskClass){
 		this.name = name;
 		this.taskClass = taskClass;
+		relatedClass = new Vector<String>();
 		status = "New";
 	}
 	
