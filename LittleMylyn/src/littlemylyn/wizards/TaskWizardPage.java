@@ -7,6 +7,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -19,8 +20,8 @@ import org.eclipse.swt.widgets.Text;
 
 public class TaskWizardPage extends WizardPage {
 
-	private Text fileText;
-	
+	private Text taskNameText;
+	private Combo taskClass;
 	private ISelection selection;
 
 	/**
@@ -42,21 +43,35 @@ public class TaskWizardPage extends WizardPage {
 		Composite container = new Composite(parent, SWT.NULL);
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
-		layout.numColumns = 3;
+		layout.numColumns = 2;
 		layout.verticalSpacing = 9;
 
 		Label label = new Label(container, SWT.NULL);
-		label.setText("&File name:");
+		label.setText("任务名称：");
 
-		fileText = new Text(container, SWT.BORDER | SWT.SINGLE);
+		taskNameText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		
-		fileText.setLayoutData(gd);
-		fileText.addModifyListener(new ModifyListener() {
+		taskNameText.setLayoutData(gd);
+		taskNameText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
 		});
+		
+		label = new Label(container,SWT.NULL);
+		label.setText("任务类别：");
+		taskClass = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
+		taskClass.add("debug");
+		taskClass.add("new feature");
+		taskClass.add("refactor");
+		taskClass.addModifyListener(new ModifyListener(){
+			public void modifyText(ModifyEvent arg0) {
+				dialogChanged();
+			}			
+		});
+		
+		
 		initialize();
 		dialogChanged();
 		setControl(container);
@@ -68,7 +83,7 @@ public class TaskWizardPage extends WizardPage {
 
 	private void initialize() {
 
-		fileText.setText("new_task");
+		taskNameText.setText("new_task");
 	}
 
 
@@ -79,17 +94,22 @@ public class TaskWizardPage extends WizardPage {
 
 	private void dialogChanged() {
 
-		String fileName = getFileName();
+		String taskName = getTaskName();
+		String taskClass = getTaskClass();
 
-		if (fileName.length() == 0) {
-			updateStatus("File name must be specified");
+		if (taskName.length() == 0) {
+			updateStatus("Task name must be specified");
 			return;
 		}
-		if (fileName.replace('\\', '/').indexOf('/', 1) > 0) {
-			updateStatus("File name must be valid");
+		if (taskName.replace('\\', '/').indexOf('/', 1) > 0) {
+			updateStatus("Task name must be valid");
 			return;
 		}
-
+		if (taskClass.length() == 0) {
+			updateStatus("Task class must be specified");
+			return;
+		}
+		
 		updateStatus(null);
 	}
 
@@ -98,7 +118,10 @@ public class TaskWizardPage extends WizardPage {
 		setPageComplete(message == null);
 	}
 
-	public String getFileName() {
-		return fileText.getText();
+	public String getTaskName() {
+		return taskNameText.getText();
+	}
+	public String getTaskClass() {
+		return taskClass.getText();
 	}
 }
