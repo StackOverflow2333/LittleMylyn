@@ -47,7 +47,7 @@ public class TaskListLabelProvider implements ILabelProvider {
 			if (((Node) arg0).getData() instanceof Task) return ((Task) ((Node) arg0).getData()).getName();
 			if (((Node) arg0).getData() instanceof String) return (String) ((Node) arg0).getData();
 			if (((Node) arg0).getData() instanceof Vector){
-				return "related class";
+				return "Related Class["+((Vector) ((Node) arg0).getData()).size()+"]";
 			}
 		}
 		

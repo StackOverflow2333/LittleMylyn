@@ -24,9 +24,9 @@ public class TaskListContentProvider implements ITreeContentProvider
 		
 		
 		//以下三行测试用
-		taskList.add(new Task("task111","debug"));
-		taskList.add(new Task("task222","debug"));
-		taskList.add(new Task("task333","refactor"));
+		taskList.add(new Task("task111","Debug"));
+		taskList.add(new Task("task222","Debug"));
+		taskList.add(new Task("task333","Refactor"));
 		
 		
 		for (int i=0;i<taskList.size();i++)

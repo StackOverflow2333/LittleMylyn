@@ -62,9 +62,9 @@ public class TaskWizardPage extends WizardPage {
 		label = new Label(container,SWT.NULL);
 		label.setText("任务类别：");
 		taskClass = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
-		taskClass.add("debug");
-		taskClass.add("new feature");
-		taskClass.add("refactor");
+		taskClass.add("Debug");
+		taskClass.add("New Feature");
+		taskClass.add("Refactor");
 		taskClass.addModifyListener(new ModifyListener(){
 			public void modifyText(ModifyEvent arg0) {
 				dialogChanged();
