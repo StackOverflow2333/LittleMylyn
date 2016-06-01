@@ -11,15 +11,16 @@ import taskContent.TaskVector;
 public class TaskListContentProvider implements ITreeContentProvider {
 	Vector<Node> nodes = new Vector<Node>();
 	TaskVector taskList = new TaskVector();
-
-	public TaskListContentProvider() {
-
-		// 以下三行测试用
-		taskList.add(new Task("task111", "Activated"));
-		taskList.add(new Task("task222", "debug"));
-		taskList.add(new Task("task333", "refactor"));
-
-		for (int i = 0; i < taskList.size(); i++) {
+	
+	public TaskListContentProvider(){
+		//以下三行测试用
+		taskList.add(new Task("task111","Debug"));
+		taskList.add(new Task("task222","Debug"));
+		taskList.add(new Task("task333","Refactor"));
+		
+		
+		for (int i=0;i<taskList.size();i++)
+		{
 			Task task = taskList.get(i);
 			String status = task.getStatus();
 			String taskClass = task.getTaskClass();
