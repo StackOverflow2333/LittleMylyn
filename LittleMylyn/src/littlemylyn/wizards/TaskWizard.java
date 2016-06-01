@@ -20,14 +20,12 @@ import org.eclipse.ui.*;
 import taskContent.Task;
 
 /**
- * This is a sample new wizard. Its role is to create a new file 
- * resource in the provided container. If the container resource
- * (a folder or a project) is selected in the workspace 
- * when the wizard is opened, it will accept it as the target
- * container. The wizard creates one file with the extension
- * "task". If a sample multi-page editor (also available
- * as a template) is registered for the same extension, it will
- * be able to open it.
+ * This is a sample new wizard. Its role is to create a new file resource in the
+ * provided container. If the container resource (a folder or a project) is
+ * selected in the workspace when the wizard is opened, it will accept it as the
+ * target container. The wizard creates one file with the extension "task". If a
+ * sample multi-page editor (also available as a template) is registered for the
+ * same extension, it will be able to open it.
  */
 
 public class TaskWizard extends Wizard implements INewWizard {
@@ -41,7 +39,7 @@ public class TaskWizard extends Wizard implements INewWizard {
 		super();
 		setNeedsProgressMonitor(true);
 	}
-	
+
 	/**
 	 * Adding the page to the wizard.
 	 */
@@ -52,12 +50,11 @@ public class TaskWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * This method is called when 'Finish' button is pressed in
-	 * the wizard. We will create an operation and run it
-	 * using wizard as execution context.
+	 * This method is called when 'Finish' button is pressed in the wizard. We
+	 * will create an operation and run it using wizard as execution context.
 	 */
 	public boolean performFinish() {
-		
+
 		final String taskName = page.getTaskName();
 		final String taskClass = page.getTaskClass();
 		IRunnableWithProgress op = new IRunnableWithProgress() {
@@ -82,59 +79,49 @@ public class TaskWizard extends Wizard implements INewWizard {
 		}
 		return true;
 	}
-	
+
 	/**
-	 * The worker method. It will find the container, create the
-	 * file if missing or just replace its contents, and open
-	 * the editor on the newly created file.
+	 * The worker method. It will find the container, create the file if missing
+	 * or just replace its contents, and open the editor on the newly created
+	 * file.
 	 */
 
-	private void doFinish(
-		String taskName,
-		String taskClass,
-		IProgressMonitor monitor)
-		throws CoreException {
+	private void doFinish(String taskName, String taskClass, IProgressMonitor monitor) throws CoreException {
 		// create a sample file
 		monitor.beginTask("Creating " + taskName, 2);
-		
-		
+
 		String root = "TaskList";
 		File folder = new File(root);
-		if (!folder.isDirectory()) folder.mkdir();
-		String fileName = root +"/"+ taskName;
+		if (!folder.isDirectory())
+			folder.mkdir();
+		String fileName = root + "/" + taskName;
 		File taskFile = new File(fileName);
-		if (!taskFile.exists())
-		{
-			Task newTask = new Task(taskName,taskClass);
-			
-			try{
+		if (!taskFile.exists()) {
+			Task newTask = new Task(taskName, taskClass);
+
+			try {
 				newTask.save();
-			}catch (Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 				throwCoreException("Task Save error");
 			}
-		}
-		else throwCoreException("Task has been exist");
-			
-			
-		
+		} else
+			throwCoreException("Task has been exist");
 
 		monitor.worked(1);
 
 		monitor.done();
 	}
-	
-
 
 	private void throwCoreException(String message) throws CoreException {
-		IStatus status =
-			new Status(IStatus.ERROR, "LittleMylyn", IStatus.OK, message, null);
+		IStatus status = new Status(IStatus.ERROR, "LittleMylyn", IStatus.OK, message, null);
 		throw new CoreException(status);
 	}
 
 	/**
-	 * We will accept the selection in the workbench to see if
-	 * we can initialize from it.
+	 * We will accept the selection in the workbench to see if we can initialize
+	 * from it.
+	 * 
 	 * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
