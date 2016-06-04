@@ -67,7 +67,7 @@ public class TaskView extends ViewPart {
 		mgr.addMenuListener(new IMenuListener() {
 			@Override
 			public void menuAboutToShow(IMenuManager manager) {
-				IStructuredSelection selection = viewer.getStructuredSelection();
+				IStructuredSelection selection = (IStructuredSelection) ( viewer).getSelection();
 				if (!selection.isEmpty()) {
 					Node node = (Node) selection.getFirstElement();
 					if (node.getData() instanceof String) {
