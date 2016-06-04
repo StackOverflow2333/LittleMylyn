@@ -1,75 +1,52 @@
 package littlemylyn.views;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Display;
 
+import littlemylyn.model.Node;
 import taskContent.Task;
-import taskContent.TaskVector;
+import littlemylyn.model.Manager;
+import littlemylyn.model.ManagerEvent;
+import littlemylyn.model.ManagerListener;
 
-public class TaskListContentProvider implements ITreeContentProvider {
-	Vector<Node> nodes = new Vector<Node>();
-	TaskVector taskList = new TaskVector();
-	
-	public TaskListContentProvider(){
-		//以下三行测试用
-		taskList.add(new Task("task111","Debug"));
-		taskList.add(new Task("task222","Debug"));
-		taskList.add(new Task("task333","Refactor"));
-		
-		
-		for (int i=0;i<taskList.size();i++)
-		{
-			Task task = taskList.get(i);
-			String status = task.getStatus();
-			String taskClass = task.getTaskClass();
-			Vector<String> relatedClasses = task.getRelatedClass();
+public class TaskListContentProvider implements ITreeContentProvider, ManagerListener {
+	private TreeViewer viewer;
+	private Manager manager;
 
-			Node taskNode = new Node(task);
-			Node statusNode = new Node(status);
-			Node taskClassNode = new Node(taskClass);
-			Node relatedClassesNode = new Node(relatedClasses);
-			Node[] classNodes = new Node[relatedClasses.size()];
-			for (int j = 0; j < relatedClasses.size(); j++) {
-				classNodes[j] = new Node(relatedClasses.get(j));
-			}
-
-			// 构建树
-			taskNode.set(null, new Node[] { statusNode, taskClassNode, relatedClassesNode });
-			statusNode.set(taskNode, null);
-			taskClassNode.set(taskNode, null);
-			relatedClassesNode.set(taskNode, classNodes);
-			for (int j = 0; j < classNodes.length; j++) {
-				classNodes[j].set(relatedClassesNode, null);
-			}
-			// 保存树
-			nodes.add(taskNode);
-
-		}
+	public TaskListContentProvider() {
 
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void inputChanged(Viewer arg0, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		this.viewer = (TreeViewer) viewer;
+		if (manager != null) {
+			manager.removeManagerListener(this);
+		}
+		manager = (Manager) newInput;
+		if (manager != null) {
+			manager.addManagerListener(this);
+		}
+	}
 
+	// 获取树查看器的根节点
+	@Override
+	public Object[] getElements(Object arg0) {
+		return manager.getItems();
 	}
 
 	@Override
 	public Object[] getChildren(Object arg0) {
 		return ((Node) arg0).getSons();
-	}
-
-	@Override
-	public Object[] getElements(Object arg0) {
-		return nodes.toArray();
 	}
 
 	@Override
@@ -82,8 +59,32 @@ public class TaskListContentProvider implements ITreeContentProvider {
 		// TODO Auto-generated method stub
 		if (((Node) arg0).getData() instanceof Task)
 			return true;
-		if (((Node) arg0).getData() instanceof Vector)
+		if (((Node) arg0).getData() instanceof ArrayList)
 			return true;
 		return false;
+	}
+
+	@Override
+	public void itemsChanged(final ManagerEvent event) {
+		if (Display.getCurrent() != null) {
+			updateViewer(event);
+			return;
+		}
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				updateViewer(event);
+			}
+		});
+
+	}
+
+	private void updateViewer(ManagerEvent event) {
+		viewer.getTree().setRedraw(false);
+		try {
+			viewer.refresh();
+		} finally {
+			viewer.getTree().setRedraw(true);
+		}
+
 	}
 }

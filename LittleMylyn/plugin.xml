@@ -9,7 +9,7 @@
             id="LittleMylyn">
       </category>
       <wizard
-            name="Task FIle"
+            name="Task File"
             icon="icons/sample.gif"
             category="LittleMylyn"
             class="littlemylyn.wizards.TaskWizard"

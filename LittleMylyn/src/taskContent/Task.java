@@ -1,77 +1,54 @@
 package taskContent;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Vector;
+import java.util.ArrayList;
 
-public class Task implements Serializable
-{
+public class Task implements Serializable {
+	private static final long serialVersionUID = -6428918215267823317L;
 	private String name;
 	private String taskClass;
 	private String status;
-	private Vector<String> relatedClass;
-	public Task(String name, String taskClass){
+	private ArrayList<RelatedClass> relatedClass;
+
+	public Task(String name, String taskClass) {
 		this.name = name;
 		this.taskClass = taskClass;
-		relatedClass = new Vector<String>();
+		relatedClass = new ArrayList<RelatedClass>();
 		status = "New";
+
 	}
-	
-	//用读取文件的方式新建Task
-	public Task(String name){
-		
-	}
-	
-	/*
-	 * save()
-	 * 默认存储地址 TaskList/name
-	 * */
-	public void save() throws IOException
-	{
-		String root = "TaskList";
-		File folder = new File(root);
-		if (!folder.isDirectory()) folder.mkdir();
-		
-		String fileName = root + "/" + name;
-		File file = new File(fileName);
-		
-		if (!file.exists()){
-			file.createNewFile();
-		}
-		
-		//接下来要完成存档
-	}
-	
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getTaskClass() {
 		return taskClass;
 	}
-	
+
 	public String getStatus() {
 		return status;
 	}
-	
-	public Vector<String> getRelatedClass() {
+
+	public ArrayList<RelatedClass> getRelatedClass() {
 		return relatedClass;
 	}
 
-	public void setRelatedClass(Vector<String> relatedClass) {
-		this.relatedClass = relatedClass;
+	public void addRelatedClass(RelatedClass reClass) {
+		relatedClass.add(reClass);
 	}
-	
-	//建议修改以下函数，因为set有规则
+
+	public void removeRelatedClass(RelatedClass relatedClass) {
+		this.relatedClass.remove(relatedClass);
+	}
+
 	public void setTaskClass(String taskClass) {
-		this.taskClass = taskClass;
+		if (taskClass.equals("Debug") || taskClass.equals("New Feature") || taskClass.equals("Refactor"))
+			this.taskClass = taskClass;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	
-	
 }

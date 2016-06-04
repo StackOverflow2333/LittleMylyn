@@ -4,20 +4,21 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+
+import littlemylyn.model.Manager;
+import taskContent.Task;
+
 import org.eclipse.core.runtime.*;
 import org.eclipse.jface.operation.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.core.runtime.CoreException;
 
-import java.io.*;
-
 import org.eclipse.ui.*;
-
-import taskContent.Task;
 
 /**
  * This is a sample new wizard. Its role is to create a new file resource in the
@@ -89,25 +90,20 @@ public class TaskWizard extends Wizard implements INewWizard {
 	private void doFinish(String taskName, String taskClass, IProgressMonitor monitor) throws CoreException {
 		// create a sample file
 		monitor.beginTask("Creating " + taskName, 2);
-
-		String root = "TaskList";
-		File folder = new File(root);
-		if (!folder.isDirectory())
-			folder.mkdir();
-		String fileName = root + "/" + taskName;
-		File taskFile = new File(fileName);
-		if (!taskFile.exists()) {
-			Task newTask = new Task(taskName, taskClass);
-
-			try {
-				newTask.save();
-			} catch (Exception e) {
-				e.printStackTrace();
-				throwCoreException("Task Save error");
+		boolean has = false;
+		ArrayList<Task> taskList = Manager.taskList;
+		for (Task task : taskList) {
+			if (task.getName().equals(taskName)) {
+				has = true;
+				throwCoreException("Task has been exist");
+				break;
 			}
-		} else
-			throwCoreException("Task has been exist");
-
+		}
+		if (!has) {
+			Task newTask = new Task(taskName, taskClass);
+			Manager.taskList.add(newTask);
+			Manager.getManager().fileTasksChanged();
+		}
 		monitor.worked(1);
 
 		monitor.done();

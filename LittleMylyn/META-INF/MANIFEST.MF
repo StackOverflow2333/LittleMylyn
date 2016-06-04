@@ -7,6 +7,10 @@ Bundle-Activator: littlemylyn.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.ui.ide
+ org.eclipse.ui.ide,
+ org.eclipse.ui.workbench,
+ org.eclipse.jdt.core;bundle-version="3.11.2",
+ org.eclipse.jdt.ui;bundle-version="3.11.2",
+ org.eclipse.jface
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

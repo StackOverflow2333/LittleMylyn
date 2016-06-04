@@ -1,32 +1,29 @@
-package littlemylyn.views;
-
-
+package littlemylyn.model;
 
 public class Node {
 	private Object data;
 	private Node[] sons;
 	private Node father;
-	
-	Node(Object data)
-	{
+
+	public Node(Object data) {
 		this.data = data;
 	}
-	
-	void set(Node father,Node[] sons)
-	{
+
+	public void set(Node father, Node[] sons) {
 		this.father = father;
 		this.sons = sons;
 	}
+
 	public Object getData() {
 		return data;
 	}
-	public Node getFather(){
+
+	public Node getFather() {
 		return father;
 	}
-	public Node[] getSons(){
+
+	public Node[] getSons() {
 		return sons;
 	}
-	
-	
-	
+
 }

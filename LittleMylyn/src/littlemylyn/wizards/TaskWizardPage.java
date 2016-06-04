@@ -51,27 +51,26 @@ public class TaskWizardPage extends WizardPage {
 
 		taskNameText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		
+
 		taskNameText.setLayoutData(gd);
 		taskNameText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
 		});
-		
-		label = new Label(container,SWT.NULL);
+
+		label = new Label(container, SWT.NULL);
 		label.setText("任务类别：");
 		taskClass = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 		taskClass.add("Debug");
 		taskClass.add("New Feature");
 		taskClass.add("Refactor");
-		taskClass.addModifyListener(new ModifyListener(){
+		taskClass.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent arg0) {
 				dialogChanged();
-			}			
+			}
 		});
-		
-		
+
 		initialize();
 		dialogChanged();
 		setControl(container);
@@ -85,8 +84,6 @@ public class TaskWizardPage extends WizardPage {
 
 		taskNameText.setText("new_task");
 	}
-
-
 
 	/**
 	 * Ensures that both text fields are set.
@@ -109,7 +106,7 @@ public class TaskWizardPage extends WizardPage {
 			updateStatus("Task class must be specified");
 			return;
 		}
-		
+
 		updateStatus(null);
 	}
 
@@ -121,6 +118,7 @@ public class TaskWizardPage extends WizardPage {
 	public String getTaskName() {
 		return taskNameText.getText();
 	}
+
 	public String getTaskClass() {
 		return taskClass.getText();
 	}
